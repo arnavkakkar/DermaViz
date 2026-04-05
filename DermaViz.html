@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DermaViz — Coming Soon</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --mint: #cfe8d5;
+      --mauve: #e6c3d1;
+      --accent: #ff4d4d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: url("image.png") no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      position: relative;
+      padding: 20px;
+    }
+
+    /* overlay */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        rgba(10, 10, 10, 0.52),
+        rgba(10, 10, 10, 0.64)
+      );
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+      padding: 30px 20px;
+      backdrop-filter: blur(6px);
+    }
+
+    .logo {
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--mint);
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .tagline {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #ccc;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 34px;
+      font-weight: 600;
+    }
+
+    p {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    .email-box {
+      margin-top: 25px;
+      display: flex;
+      width: 100%;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      outline: none;
+      border-radius: 6px 0 0 6px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 14px;
+    }
+
+    input::placeholder {
+      color: #ddd;
+    }
+
+    button {
+      padding: 12px 16px;
+      border: none;
+      background: var(--mauve);
+      color: black;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 0 6px 6px 0;
+      transition: 0.3s;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background: var(--mint);
+    }
+
+    #success-msg {
+      display: none;
+      margin-top: 10px;
+      color: var(--mint);
+      font-size: 13px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 11px;
+      color: #aaa;
+    }
+
+    .glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(230,195,209,0.25), transparent);
+      filter: blur(80px);
+      top: 10%;
+      left: 20%;
+      z-index: 0;
+    }
+
+    /* 📱 MOBILE SPECIFIC TWEAKS */
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 40px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .email-box {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      input {
+        border-radius: 6px;
+      }
+
+      button {
+        border-radius: 6px;
+        width: 100%;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="glow"></div>
+
+  <div class="container">
+    
+    <div class="logo">
+      DermaViz<span>.</span>
+    </div>
+
+    <div class="tagline">
+      VISIBLE SKIN SCIENCE
+    </div>
+
+    <h1>Coming Soon</h1>
+    <p>Advanced face serums are under development.</p>
+
+    <form class="email-box" action="https://formspree.io/f/mqegggyq" method="POST">
+      <input 
+        type="email" 
+        name="email" 
+        placeholder="Enter your email" 
+        required
+      />
+      <button type="submit">Notify Me</button>
+    </form>
+
+    <p id="success-msg">You're on the list ✨</p>
+
+    <div class="footer">
+      © 2026 DermaViz. All rights reserved.
+    </div>
+
+  </div>
+
+  <script>
+    const form = document.querySelector("form");
+    const msg = document.getElementById("success-msg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const data = new FormData(form);
+
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        form.reset();
+        msg.style.display = "block";
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    });
+  </script>
+
+</body>
+</html>
